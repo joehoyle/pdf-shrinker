@@ -5,8 +5,15 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$SCRIPT_DIR/PDFShrinker"
 BUILD_DIR="$SCRIPT_DIR/build"
 APP_NAME="PDF Shrinker"
-GS_BIN="/opt/homebrew/bin/gs"
-GS_SHARE="/opt/homebrew/share/ghostscript/10.05.1"
+GS_BIN="$(which gs)"
+GS_VERSION="$("$GS_BIN" --version)"
+GS_SHARE="$(dirname "$(dirname "$GS_BIN")")/share/ghostscript/$GS_VERSION"
+
+echo "==> Using Ghostscript $GS_VERSION at $GS_BIN"
+if [ ! -d "$GS_SHARE" ]; then
+    echo "ERROR: Ghostscript share directory not found at $GS_SHARE"
+    exit 1
+fi
 
 echo "==> Generating Xcode project..."
 cd "$PROJECT_DIR"
