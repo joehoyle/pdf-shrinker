@@ -46,7 +46,6 @@ jobs:
           security import $RUNNER_TEMP/cert.p12 \
             -P "$CERTIFICATE_PASSWORD" \
             -A \
-            -t cert \
             -f pkcs12 \
             -k "$KEYCHAIN_PATH"
 
